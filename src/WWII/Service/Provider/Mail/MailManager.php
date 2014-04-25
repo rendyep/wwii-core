@@ -1,0 +1,50 @@
+<?php
+
+namespace WWII\Service\Provider\Mail;
+
+require_once 'Mail.php';
+
+class MailManager implements \WWII\Service\ServiceProviderInterface
+{
+    protected $serviceManager;
+
+    protected $configManager;
+
+    protected $credential;
+
+    protected $connection;
+
+    public function __construct(\WWII\Service\ServiceManagerInterface $serviceManager)
+    {
+        $this->serviceManager = $serviceManager;
+        $this->configManager = $serviceManager->getConfigManager();
+        $this->credential = $this->configManager->get('mail');
+
+        $this->connect();
+    }
+
+    public function connect()
+    {
+        $this->connection = \Mail::factory('smtp', $this->credential);
+    }
+
+    public function send($to, $subject, $body)
+    {
+        $headers['From'] = $this->credential['username'];
+        $headers['To'] = $to;
+        $headers['Subject'] = $subject;
+        $headers['Date'] = date('r', time());
+
+        $sender = $this->connection->send($to, $headers, $body);
+        if (\PEAR::isError($sender)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getError()
+    {
+        return $this->connection->getMessage();
+    }
+}
