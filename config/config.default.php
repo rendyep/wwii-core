@@ -1,6 +1,6 @@
 <?php
 
-return array_merge(array(
+$config = array(
     "database" => array(
         "driver" => "driver",
         "host" => "localhost",
@@ -41,4 +41,10 @@ return array_merge(array(
         "FlashMessenger"
             => "\\WWII\Service\\Provider\\FlashMessenger\\FlashMessengerFactory",
     ),
-), include('config.sensitive.php'));
+);
+
+if (file_exists(__DIR__ . '/config.sensitive.php')) {
+    $config = array_merge($config, include(__DIR__ . '/config.sensitive.php'));
+}
+
+return $config;
