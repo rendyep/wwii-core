@@ -1,15 +1,7 @@
 <?php
 
 $config = array(
-    "database" => array(
-        "driver" => "driver",
-        "host" => "localhost",
-        "user" => "username",
-        "password" => "password",
-        "dbname" => "database",
-    ),
-
-    "database2" => array(
+    "sql_server_database" => array(
         "driver" => "driver",
         "host" => "localhost",
         "user" => "username",

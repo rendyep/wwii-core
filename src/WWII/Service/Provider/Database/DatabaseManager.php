@@ -18,7 +18,7 @@ class DatabaseManager extends \PDO implements \WWII\Service\ServiceProviderInter
     {
         $this->serviceManager = $serviceManager;
         $this->configManager = $this->serviceManager->getConfigManager();
-        $this->databaseConfig = $this->configManager->get('database2');
+        $this->databaseConfig = $this->configManager->get('sql_server_database');
 
         parent::__construct("sqlsrv:Server={$this->databaseConfig['host']};Database={$this->databaseConfig['dbname']};",
             $this->databaseConfig['user'], $this->databaseConfig['password']);
