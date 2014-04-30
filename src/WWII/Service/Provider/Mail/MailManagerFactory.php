@@ -7,7 +7,6 @@ class MailManagerFactory implements \WWII\Service\ServiceProviderFactoryInterfac
     public function createService(\WWII\Service\ServiceManagerInterface $serviceManager)
     {
         $service = new MailManager($serviceManager);
-        $service->connect();
 
         return $service;
     }
