@@ -27,6 +27,7 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
         $action     = isset($_GET['action']) ? $_GET['action'] : null;
         $key        = isset($_GET['key']) ? $_GET['key'] : null;
         $bypass     = isset($_GET['bypass']) ? true : false;
+        $print      = isset($_GET['print']) ? true : false;
         $page       = isset($_GET['page']) ? $_GET['page'] : null;
 
         if (!empty($module)) {
@@ -45,6 +46,8 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
             $this->key = $key;
         }
 
+        $this->print = $print;
+
         $this->bypass = $bypass;
 
         if (!empty($page)) {
@@ -59,6 +62,7 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
      *      action
      *      key
      *      bypass
+     *      print
      *      page
      */
     public function setRoute(array $options)
@@ -83,8 +87,8 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
             $this->key = $options['key'];
         }
 
-        if (isset($options['bypass'])) {
-            $this->bypass = $options['bypass'];
+        if (isset($options['print'])) {
+            $this->bypass = $options['print'];
         }
 
         if (isset($options['page'])) {
@@ -127,6 +131,11 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
     public function isBypass()
     {
         return $this->bypass;
+    }
+
+    public function isPrint()
+    {
+        return $this->print;
     }
 
     public function getPage()
@@ -198,6 +207,7 @@ class RouteManager implements \WWII\Service\ServiceProviderInterface
             . '&action=' . ((!empty($options['action'])) ? $options['action'] : $this->action)
             . ((!empty($options['key'])) ? '&key=' . $options['key'] : '')
             . ((!empty($options['bypass'])) ? '&bypass=' . $options['bypass'] : '')
+            . ((!empty($options['print'])) ? '&print=' . $options['print'] : '')
             . ((!empty($options['page'])) ? '&page=' . $options['page'] : '');;
 
         return $route;
