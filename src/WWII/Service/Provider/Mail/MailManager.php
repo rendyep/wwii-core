@@ -20,16 +20,7 @@ class MailManager implements \WWII\Service\ServiceProviderInterface
         $this->configManager = $serviceManager->getConfigManager();
         $this->credential = $this->configManager->get('mail');
 
-        $this->getConnection();
-    }
-
-    public function getConnection()
-    {
-        if ($this->connection === null) {
-            $this->connection = \Mail::factory('smtp', $this->credential);
-        }
-
-        return $connection;
+        $this->connection = \Mail::factory('smtp', $this->credential);
     }
 
     public function send($to, $subject, $body)
